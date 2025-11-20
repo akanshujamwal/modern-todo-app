@@ -3,6 +3,7 @@
 
 A clean, responsive, and modern Todo Application built using **HTML**, **CSS**, and **JavaScript**.  
 It features a modern UI, grid/list responsive layout, edit/delete functionality, and persistent storage using **localStorage**.
+website: https://akanshujamwal.github.io/modern-todo-app/
 
 ----------
 
