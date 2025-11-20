@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Todo App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .add-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .add-section input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .add-section button {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Task List → List on phone, Grid on desktop */
+        #taskList {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 900px) {
+            #taskList {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 16px;
+            }
+        }
+
+        /* === FIXED TASK CARD WITH LONG TEXT SUPPORT === */
+        .task-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+            width: 100%;
+        }
+
+        @media (min-width: 900px) {
+            .task-card {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+        }
+
+        .task-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .task-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .task-left input {
+            margin-top: 4px;
+        }
+
+        .task-left span {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.4;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            flex: 1;
+            max-width: 100%;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (min-width: 900px) {
+            .actions {
+                margin-top: 0;
+                justify-content: flex-end;
+                white-space: nowrap;
+            }
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+        }
+
+        .edit-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .del-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .completed {
+            opacity: 0.6;
+        }
+
+        .completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            padding: 28px;
+            width: 90%;
+            max-width: 440px;
+            border-radius: 14px;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+        <h2>✨ My Tasks</h2>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="activeTasks">0</div>
+                <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+        </div>
+
+        <div class="add-section">
+            <input type="text" id="taskInput" placeholder="What needs to be done?" />
+            <button onclick="addTask()">Add</button>
+        </div>
+
+        <div id="taskList"></div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h3>Edit Task</h3>
+            <input type="text" id="editInput" />
+            <div class="modal-actions">
+                <button onclick="closeEditModal()">Cancel</button>
+                <button onclick="saveEdit()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let editingTaskId = null;
+
+        function loadTasks() {
+            try {
+                const saved = localStorage.getItem("tasks");
+                if (saved) tasks = JSON.parse(saved);
+            } catch (e) {
+                tasks = [];
+            }
+            render();
+        }
+
+        function save() {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function updateStats() {
+            document.getElementById("totalTasks").textContent = tasks.length;
+            document.getElementById("completedTasks").textContent = tasks.filter(t => t.completed).length;
+            document.getElementById("activeTasks").textContent = tasks.filter(t => !t.completed).length;
+        }
+
+        function render() {
+            const list = document.getElementById("taskList");
+            list.innerHTML = "";
+
+            tasks.forEach(task => {
+                const card = document.createElement("div");
+                card.className = "task-card" + (task.completed ? " completed" : "");
+
+                card.innerHTML = `
+                    <div class="task-left">
+                        <input type="checkbox" onclick="toggle(${task.id})" ${task.completed ? "checked" : ""}>
+                        <span>${task.text}</span>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn edit-btn" onclick="editTask(${task.id})">Edit</button>
+                        <button class="btn del-btn" onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+
+            updateStats();
+        }
+
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            tasks.push({
+                id: Date.now(),
+                text,
+                completed: false
+            });
+
+            save();
+            render();
+            input.value = "";
+        }
+
+        function toggle(id) {
+            tasks = tasks.map(t =>
+                t.id === id ? { ...t, completed: !t.completed } : t
+            );
+            save();
+            render();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            save();
+            render();
+        }
+
+        function editTask(id) {
+            editingTaskId = id;
+            document.getElementById("editInput").value =
+                tasks.find(t => t.id === id).text;
+            document.getElementById("editModal").classList.add("active");
+        }
+
+        function closeEditModal() {
+            document.getElementById("editModal").classList.remove("active");
+        }
+
+        function saveEdit() {
+            const newText = document.getElementById("editInput").value.trim();
+            if (!newText) return;
+
+            const task = tasks.find(t => t.id === editingTaskId);
+            task.text = newText;
+
+            save();
+            render();
+            closeEditModal();
+        }
+
+        loadTasks();
+    </script>
+
+</body>
+
+</html>
