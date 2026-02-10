@@ -1,67 +1,45 @@
-
 # Modern Todo App
 
-A clean, responsive, and modern Todo Application built using **HTML**, **CSS**, and **JavaScript**.  
-It features a modern UI, grid/list responsive layout, edit/delete functionality, and persistent storage using **localStorage**.
-website: https://akanshujamwal.github.io/modern-todo-app/
+A lightweight, responsive, and persistent Task Management application built with vanilla HTML, CSS, and JavaScript. This project features a modern UI with gradient aesthetics and robust state management using local storage.
 
-----------
+## 🚀 Features
 
-## Features
+* **CRUD Functionality:** Create, Read, Update, and Delete tasks seamlessly.
+* **Data Persistence:** Uses `localStorage` to save your tasks, ensuring data is not lost on page refreshes.
+* **Real-time Statistics:** Dashboard displays live counts for Total, Active, and Completed tasks.
+* **Responsive Design:** Adapts fluidly from mobile views (vertical list) to desktop views (grid layout).
+* **Task Editing:** Includes a modal interface for modifying existing tasks.
+* **Modern UI/UX:** Features hover effects, smooth transitions, and a clean, card-based layout.
 
--   Add, edit, delete tasks
--   Mark tasks as completed
--   Responsive layout (list on mobile, grid on desktop)
--   Clean UI with gradients and shadows
--   Long text support (auto-wrap)
--   Smooth animations
--   Auto-save using `localStorage`
--   Fully client-side (no backend required)
--   Deployable to GitHub Pages
-    
-----------
+## 🛠️ Tech Stack
 
+* **HTML5:** Semantic markup for structure.
+* **CSS3:** Flexbox, CSS Grid, and Media Queries for layout and styling.
+* **JavaScript (ES6+):** Vanilla JS for DOM manipulation and logic (no external libraries).
 
-## Tech Stack
+## 📦 How to Run
 
--   HTML5
--   CSS3
--   JavaScript
--   LocalStorage API
--   GitHub Pages
-    
-----------
+Since this is a single-file application, no build process or package manager is required.
 
-## Project Structure
+1.  Download or create a file named `index.html`.
+2.  Paste the source code into the file.
+3.  Open `index.html` in any modern web browser (Google Chrome, Firefox, Safari, etc.).
 
-`modern-todo-app/
-│── index.html
-│── README.md
-└── assets/   (optional)` 
+## 📂 Code Overview
 
-----------
+The logic is encapsulated within the `<script>` tag handling the following key functions:
 
-## How to Run Locally
+* **State Management:** The `tasks` array holds the application state.
+* **`loadTasks()`:** Initializes the app by retrieving JSON data from local storage.
+* **`render()`:** Dynamically regenerates the HTML for the task list based on the current state.
+* **`save()`:** Serializes the task array and saves it to the browser's storage.
 
-1.  Clone the repository:
-    
-    `git clone https://github.com/akanshujamwal/modern-todo-app` 
-    
-2.  Navigate into the directory:
-    
-    `cd modern-todo-app` 
-    
-3.  Open `index.html` in your browser.
-    
+## 🔮 Future Improvements
 
-----------
+* Add drag-and-drop functionality for reordering tasks.
+* Implement categories or tags for tasks.
+* Add Dark Mode toggle.
 
-## License
+---
 
-This project is free to use. Modify it however you want.
-
-----------
-
-## Developer
-
-Created by **Akanshu**
+**Author:** Akanshu Jamwal
