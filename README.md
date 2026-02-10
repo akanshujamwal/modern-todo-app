@@ -87,11 +87,11 @@ Future improvements planned for this project:
 
 **Akanshu Jamwal**
 
-* **Github:** [@yourusername](https://github.com/yourusername)
-* **LinkedIn:** [Akanshu Jamwal](https://linkedin.com/in/yourprofile)
+* **Github:** [@akanshujamwal](https://github.com/akanshujamwal)
+* **LinkedIn:** [Akanshu Jamwal](https://www.linkedin.com/in/akanshu-jamwal)
 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ using Vanilla JS</sub>
+  <sub>Built with ❤️ using React JS</sub>
 </div>
