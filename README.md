@@ -25,11 +25,11 @@ This application goes beyond a basic to-do list by implementing real-world data 
 
 | Feature | Description |
 | :--- | :--- |
-| ** Persistent Storage** | Tasks are saved to `localStorage`, so your data survives page reloads. |
-| ** Real-time Stats** | Live dashboard showing **Total**, **Active**, and **Completed** tasks. |
-| ** Fully Responsive** | Adapts from a vertical mobile list to a clean desktop grid layout. |
-| ** Edit Mode** | Integrated modal interface for quick task updates. |
-| ** Modern UI** | Glassmorphism-inspired design with smooth hover effects and transitions. |
+|  Persistent Storage | Tasks are saved to `localStorage`, so your data survives page reloads. |
+|  Real-time Stats | Live dashboard showing **Total**, **Active**, and **Completed** tasks. |
+|  Fully Responsive | Adapts from a vertical mobile list to a clean desktop grid layout. |
+|  Edit Mode | Integrated modal interface for quick task updates. |
+|  Modern UI | Glassmorphism-inspired design with smooth hover effects and transitions. |
 
 ---
 
