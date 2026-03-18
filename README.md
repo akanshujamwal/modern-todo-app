@@ -1,184 +1,156 @@
-# Modern Todo App
+# Taskline.
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
-
-> A lightweight, responsive, and persistent **Task Management Application** built using pure **HTML, CSS, and JavaScript**, featuring a modern UI and browser storage integration.
+**Your day, organized.** A production-grade, single-file todo application with a warm editorial aesthetic and zero dependencies.
 
 ---
 
-# 📑 Table of Contents
-
-- [✨ Modern Todo App](#-modern-todo-app)
-  - [📌 Features](#-features)
-  - [🛠 Tech Stack](#-tech-stack)
-  - [🚀 Installation & Usage](#-installation--usage)
-  - [📂 Code Structure](#-code-structure)
-  - [📊 Core Functionality](#-core-functionality)
-  - [🗺 Roadmap](#-roadmap)
-  - [👨‍💻 Author](#-author)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ---
 
-# 📌 Features
+## Overview
 
-This application implements practical **frontend engineering concepts** and **UI/UX best practices**.
+Taskline is a lightweight, client-side task manager built as a single HTML file. No frameworks, no build steps, no backend — just open and use. Designed with an intentional editorial aesthetic that feels like a well-typeset notebook rather than a generic productivity tool.
+
+---
+
+## Features
 
 | Feature | Description |
-| :--- | :--- |
-| 💾 Persistent Storage | Tasks are stored in `localStorage` so they remain saved after refresh. |
-| 📊 Real-time Statistics | Displays **Total Tasks**, **Active Tasks**, and **Completed Tasks**. |
-| 📱 Fully Responsive | Mobile-first layout that transforms into a grid on larger screens. |
-| ✏️ Edit Tasks | Edit tasks through a clean modal interface. |
-| 🗑 Delete Tasks | Remove tasks instantly with a delete button. |
-| ✔️ Task Completion | Mark tasks as completed using checkboxes. |
-| 🎨 Modern UI | Gradient backgrounds, card layout, and hover animations. |
+|---|---|
+| **Add / Edit / Delete** | Full CRUD with inline delete confirmation |
+| **Completion Toggle** | Custom animated checkboxes with visual feedback |
+| **Smart Filters** | Switch between All, Active, and Completed views |
+| **Live Stats** | Real-time count of total, active, and done tasks |
+| **Relative Timestamps** | "5m ago", "2h ago" — always know when you added a task |
+| **Clear Completed** | One-click cleanup for finished tasks |
+| **Session Persistence** | Tasks survive page refreshes via sessionStorage |
+| **Keyboard Shortcuts** | `Enter` to add tasks, `Esc` to close modals |
+| **XSS Protected** | All user input is sanitized before rendering |
 
 ---
 
-# 🛠 Tech Stack
+## Design Philosophy
 
-Built using **vanilla web technologies** to demonstrate a strong understanding of the DOM and browser APIs.
+Taskline deliberately avoids the generic "AI-generated app" look. The design choices are intentional:
 
-| Technology | Purpose |
-|------------|--------|
-| **HTML5** | Structure and layout |
-| **CSS3** | Styling, responsive design, animations |
-| **JavaScript (ES6+)** | Application logic |
-| **LocalStorage API** | Data persistence |
+- **Typography** — DM Serif Display paired with Source Sans 3 for a refined editorial feel
+- **Palette** — Warm creams, earthy terracotta (`#c45d3e`), and muted sage (`#5a7a64`) instead of the usual blue/purple gradients
+- **Motion** — Subtle staggered animations on load, smooth checkbox transitions, and hover micro-interactions
+- **Whitespace** — Generous spacing that lets the interface breathe
 
 ---
 
-# 🚀 Installation & Usage
+## Responsiveness
 
-This is a **client-side application**, so no build tools or dependencies are required.
+Taskline is fully responsive across all breakpoints:
 
-### 1️⃣ Clone the repository
+```
+320px+   Mobile      → Stacked input, scrollable filters, always-visible actions
+640px+   Tablet      → Side-by-side input + button, refined spacing
+900px+   Desktop     → Full-width layout with hover-reveal action buttons
+Print    Media       → Clean output with interactive elements stripped
+```
+
+---
+
+## Getting Started
+
+**Option 1 — Just open it**
 
 ```bash
-git clone https://github.com/yourusername/modern-todo-app.git
+open todo-app.html
 ```
 
-### 2️⃣ Navigate to the project folder
+**Option 2 — Serve locally**
 
 ```bash
-cd modern-todo-app
+# Python
+python3 -m http.server 3000
+
+# Node
+npx serve .
 ```
 
-### 3️⃣ Launch the app
-
-Simply open:
-
-```
-index.html
-```
-
-in any modern browser such as **Chrome, Firefox, or Safari**.
+Then visit `http://localhost:3000/todo-app.html`
 
 ---
 
-# 📂 Code Structure
-
-The project is intentionally simple and contained in a single file.
+## Project Structure
 
 ```
-modern-todo-app
-│
-├── index.html
-│
-└── README.md
+.
+├── todo-app.html      # The entire application — markup, styles, and logic
+└── README.md          # You are here
 ```
 
-### index.html includes:
-
-- HTML layout
-- CSS styling
-- JavaScript logic
-
-This makes the application **easy to understand and portable**.
+Yes, it's one file. That's the point.
 
 ---
 
-# 📊 Core Functionality
+## Accessibility
 
-The application works around a **task state array** that stores tasks and syncs them with LocalStorage.
+- Semantic HTML with proper `role` attributes (`list`, `listitem`, `tablist`, `tab`, `dialog`)
+- ARIA labels on all interactive elements
+- `:focus-visible` outlines for keyboard navigation
+- Escape key closes modals and cancels confirmations
+- Native checkbox behavior preserved under custom styling
 
-### Task Object Structure
+---
 
-```javascript
-{
-  id: 16928373636,
-  text: "Complete project documentation",
-  completed: false
+## Browser Support
+
+| Browser | Supported |
+|---|---|
+| Chrome 90+ | ✅ |
+| Firefox 90+ | ✅ |
+| Safari 15+ | ✅ |
+| Edge 90+ | ✅ |
+| Mobile Safari | ✅ |
+| Chrome Android | ✅ |
+
+---
+
+## Technical Notes
+
+- **No dependencies** — zero npm packages, zero CDN libraries (fonts excluded)
+- **No build step** — no bundler, transpiler, or compiler required
+- **XSS safe** — user input escaped via `textContent` before DOM insertion
+- **IIFE scoped** — all JavaScript wrapped in an immediately-invoked function expression to avoid global pollution
+- **Event delegation** — single listener on the task list handles all task interactions
+- **Print ready** — `@media print` rules produce a clean, ink-friendly output
+
+---
+
+## Customization
+
+All visual tokens are defined as CSS custom properties at the top of the file:
+
+```css
+:root {
+  --ink: #1a1612;        /* Primary text */
+  --paper: #faf8f5;      /* Card backgrounds */
+  --cream: #f3efe9;      /* Page background */
+  --accent: #c45d3e;     /* Terracotta — primary action color */
+  --sage: #5a7a64;       /* Green — completion color */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
 }
 ```
 
----
-
-### Key Functions
-
-#### `loadTasks()`
-
-Loads saved tasks from LocalStorage when the application starts.
-
-#### `render()`
-
-Dynamically generates task cards and updates the UI.
-
-#### `save()`
-
-Stores the task array inside LocalStorage.
-
-```javascript
-localStorage.setItem("tasks", JSON.stringify(tasks));
-```
-
-#### `toggle(id)`
-
-Marks tasks as completed or active.
-
-#### `deleteTask(id)`
-
-Removes a task from the list.
-
-#### `editTask(id)`
-
-Opens the modal and allows editing the task text.
+Change these and the entire app updates.
 
 ---
 
-# 🗺 Roadmap
+## License
 
-Future improvements planned for this project:
-
-- [ ] Drag & Drop task ordering
-- [ ] Task categories or tags
-- [ ] Dark mode support
-- [ ] Task search functionality
-- [ ] Task filtering (All / Active / Completed)
-- [ ] Due dates and reminders
-- [ ] Progressive Web App (PWA) support
+MIT — do whatever you want with it.
 
 ---
 
-# 👨‍💻 Author
-
-**Akanshu Jamwal**
-
-Flutter Developer | Software Engineer | Tech Enthusiast
-
-GitHub  
-https://github.com/akanshujamwal
-
-LinkedIn  
-https://www.linkedin.com/in/akanshu-jamwal
-
----
-
-<div align="center">
-
-### ⭐ If you like this project, consider giving it a star!
-
-</div>
+<p align="center">
+  <em>Built with care, shipped in one file.</em>
+</p>
